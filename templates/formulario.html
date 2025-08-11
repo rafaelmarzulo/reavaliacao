@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+
+{% block title %}Formulário • Sistema de Reavaliação Física MoniPersonal{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header brand-gradient text-white">
+                <h4 class="mb-0">
+                    <i class="bi bi-clipboard-plus me-2"></i>
+                    Formulário de Reavaliação Física
+                </h4>
+            </div>
+
+            <div class="card-body">
+                <form method="post" action="/formulario">
+                    <!-- Nome do Aluno -->
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">
+                            <i class="bi bi-person me-1"></i>
+                            Nome do Aluno *
+                        </label>
+                        <input type="text" class="form-control" id="nome" name="nome" required>
+                    </div>
+
+                    <!-- Peso -->
+                    <div class="mb-3">
+                        <label for="peso" class="form-label">
+                            <i class="bi bi-speedometer2 me-1"></i>
+                            Peso Atual *
+                        </label>
+                        <input type="text" class="form-control" id="peso" name="peso" placeholder="Ex: 70kg" required>
+                    </div>
+
+                    <!-- Medidas -->
+                    <div class="mb-3">
+                        <label for="medidas" class="form-label">
+                            <i class="bi bi-rulers me-1"></i>
+                            Medidas (Pescoço, Cintura, Quadril) *
+                        </label>
+                        <textarea class="form-control" id="medidas" name="medidas" rows="3"
+                            placeholder="Ex: Pescoço: 35cm, Cintura: 80cm, Quadril: 95cm" required></textarea>
+                    </div>
+
+                    <!-- Faltas no Treino -->
+                    <div class="mb-3">
+                        <label for="faltou_algo" class="form-label">
+                            <i class="bi bi-calendar-x me-1"></i>
+                            Faltou algo no treino? *
+                        </label>
+                        <textarea class="form-control" id="faltou_algo" name="faltou_algo" rows="3"
+                            placeholder="Descreva se faltou algum exercício ou equipamento" required></textarea>
+                    </div>
+
+                    <!-- Aspectos Positivos e Negativos -->
+                    <div class="mb-3">
+                        <label for="gostou_mais_menos" class="form-label">
+                            <i class="bi bi-emoji-smile me-1"></i>
+                            O que mais gostou e o que menos gostou? *
+                        </label>
+                        <textarea class="form-control" id="gostou_mais_menos" name="gostou_mais_menos" rows="4"
+                            placeholder="Descreva os aspectos positivos e negativos do treino" required></textarea>
+                    </div>
+
+                    <!-- Meta de Água -->
+                    <div class="mb-3">
+                        <label for="meta_agua" class="form-label">
+                            <i class="bi bi-droplet me-1"></i>
+                            Meta de ingestão de água *
+                        </label>
+                        <textarea class="form-control" id="meta_agua" name="meta_agua" rows="2"
+                            placeholder="Ex: Bebo 2 litros por dia, preciso aumentar para 3 litros" required></textarea>
+                    </div>
+
+                    <!-- Alimentação -->
+                    <div class="mb-3">
+                        <label for="alimentacao" class="form-label">
+                            <i class="bi bi-egg-fried me-1"></i>
+                            Alimentação e dificuldades *
+                        </label>
+                        <textarea class="form-control" id="alimentacao" name="alimentacao" rows="4"
+                            placeholder="Descreva sua alimentação atual e principais dificuldades" required></textarea>
+                    </div>
+
+                    <!-- Itens de melhora -->
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="bi bi-arrow-up-circle me-1"></i>
+                            Quais itens você sentiu mais melhora? *
+                        </label>
+
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="melhorias"
+                                        value="Melhora do Sono" id="m1">
+                                    <label class="form-check-label" for="m1">Melhora do Sono</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="melhorias"
+                                        value="Diminuição da Ansiedade" id="m2">
+                                    <label class="form-check-label" for="m2">Diminuição da Ansiedade</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="melhorias"
+                                        value="Melhora da Celulite" id="m3">
+                                    <label class="form-check-label" for="m3">Melhora da Celulite</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="melhorias"
+                                        value="Melhora da disposição no dia a dia" id="m4">
+                                    <label class="form-check-label" for="m4">Melhora da disposição no dia a dia</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="melhorias"
+                                        value="Sentindo as roupas mais largas" id="m5">
+                                    <label class="form-check-label" for="m5">Sentindo as roupas mais largas</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="melhorias"
+                                        value="Melhora na pele e cabelo" id="m6">
+                                    <label class="form-check-label" for="m6">Melhora na pele e cabelo</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="melhorias"
+                                        value="Redução do estresse" id="m7">
+                                    <label class="form-check-label" for="m7">Redução do estresse</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="melhorias"
+                                        value="Melhora do Humor" id="m8">
+                                    <label class="form-check-label" for="m8">Melhora do Humor</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="melhorias"
+                                        value="Diminuição de peso" id="m9">
+                                    <label class="form-check-label" for="m9">Diminuição de peso</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="melhorias"
+                                        value="Melhora do Intestino" id="m10">
+                                    <label class="form-check-label" for="m10">Melhora do Intestino</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="melhorias" value="Outro"
+                                        id="m11">
+                                    <label class="form-check-label" for="m11">Outro</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Outras Melhorias -->
+                    <div class="mb-3">
+                        <label for="outros_melhorias" class="form-label">
+                            <i class="bi bi-plus-circle me-1"></i>
+                            Outras melhorias (texto livre)
+                        </label>
+                        <textarea class="form-control" id="outros_melhorias" name="outros_melhorias" rows="3"
+                            placeholder="Descreva outras melhorias que percebeu"></textarea>
+                    </div>
+
+                    <!-- Pedido Especial -->
+                    <div class="mb-3">
+                        <label for="pedido_especial" class="form-label">
+                            <i class="bi bi-chat-square-text me-1"></i>
+                            Pedido especial para o próximo treino
+                        </label>
+                        <textarea class="form-control" id="pedido_especial" name="pedido_especial" rows="3"
+                            placeholder="Algum pedido especial ou foco para o próximo treino?"></textarea>
+                    </div>
+
+                    <!-- Sugestão Geral -->
+                    <div class="mb-3">
+                        <label for="sugestao_geral" class="form-label">
+                            <i class="bi bi-lightbulb me-1"></i>
+                            Sugestões ou observações gerais
+                        </label>
+                        <textarea class="form-control" id="sugestao_geral" name="sugestao_geral" rows="3"
+                            placeholder="Sugestões, observações ou comentários gerais"></textarea>
+                    </div>
+
+                    <!-- Ciência e envio de fotos -->
+                    <div class="mb-3">
+                        <div class="alert alert-light border rounded-3">
+                            <p class="mb-2">
+                                Estou ciente que não devo omitir nenhuma informação que seja necessária sobre esse mês
+                                que passou.
+                                E para que a prescrição do novo treino fique individualizada para as minhas
+                                necessidades, preciso enviar
+                                as fotos de frente, lado e costa no grupo de suporte do WhatsApp, para ser avaliado onde
+                                teve melhora
+                                e onde ainda preciso melhorar.
+                            </p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="aceite_info" name="aceite_info"
+                                    required>
+                                <label class="form-check-label" for="aceite_info">
+                                    Aceite e assinatura da informação acima *
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aceite -->
+                    <div class="mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="aceite" value="true" id="aceite"
+                                required>
+                            <label class="form-check-label" for="aceite">
+                                <strong>Declaro que todas as informações fornecidas são verdadeiras *</strong>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Botões -->
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="/alunos" class="btn btn-outline-secondary me-md-2">
+                            <i class="bi bi-arrow-left me-1"></i>
+                            Ver Alunos
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle me-1"></i>
+                            Enviar Reavaliação
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

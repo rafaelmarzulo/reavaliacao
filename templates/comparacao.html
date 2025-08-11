@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block title %}Comparação de Progresso - {{ nome }} - Sistema de Reavaliação Física MoniPersonal{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>
+                <i class="bi bi-graph-up me-2"></i>
+                Comparação de Progresso - {{ nome }}
+            </h2>
+            <div>
+                <a href="/aluno/{{ nome }}" class="btn btn-outline-primary me-2">
+                    <i class="bi bi-clock-history me-1"></i>
+                    Ver Histórico
+                </a>
+                <a href="/alunos" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i>
+                    Voltar
+                </a>
+            </div>
+        </div>
+
+        {% if avaliacoes and avaliacoes|length > 1 %}
+            <!-- Resumo de Evolução -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-bar-chart me-2"></i>
+                        Resumo da Evolução
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <div class="border rounded p-3">
+                                <h6 class="text-muted">Total de Avaliações</h6>
+                                <h3 class="text-primary">{{ avaliacoes|length }}</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border rounded p-3">
+                                <h6 class="text-muted">Primeira Avaliação</h6>
+                                <h5 class="text-success">{{ avaliacoes[0].data.strftime('%d/%m/%Y') }}</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border rounded p-3">
+                                <h6 class="text-muted">Última Avaliação</h6>
+                                <h5 class="text-info">{{ avaliacoes[-1].data.strftime('%d/%m/%Y') }}</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border rounded p-3">
+                                <h6 class="text-muted">Período</h6>
+                                <h5 class="text-warning">
+                                    {{ ((avaliacoes[-1].data - avaliacoes[0].data).days) }} dias
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparação Detalhada -->
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">
+                        <i class="bi bi-list-check me-2"></i>
+                        Comparação Detalhada
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Peso</th>
+                                    <th>Medidas</th>
+                                    <th>Melhorias</th>
+                                    <th>Observações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for avaliacao in avaliacoes %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ avaliacao.data.strftime('%d/%m/%Y') }}</strong>
+                                        {% if loop.first %}
+                                            <span class="badge bg-success ms-1">Primeira</span>
+                                        {% elif loop.last %}
+                                            <span class="badge bg-info ms-1">Última</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ avaliacao.peso }}</td>
+                                    <td>
+                                        <small>{{ avaliacao.medidas[:50] }}{% if avaliacao.medidas|length > 50 %}...{% endif %}</small>
+                                    </td>
+                                    <td>
+                                        {% if avaliacao.melhorias_processadas %}
+                                            {% for melhoria in avaliacao.melhorias_processadas[:3] %}
+                                                <span class="badge bg-success me-1">{{ melhoria }}</span>
+                                            {% endfor %}
+                                            {% if avaliacao.melhorias_processadas|length > 3 %}
+                                                <span class="badge bg-secondary">+{{ avaliacao.melhorias_processadas|length - 3 }}</span>
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if avaliacao.outros_melhorias %}
+                                            <small>{{ avaliacao.outros_melhorias[:40] }}{% if avaliacao.outros_melhorias|length > 40 %}...{% endif %}</small>
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Análise de Melhorias -->
+            {% set all_melhorias = [] %}
+            {% for avaliacao in avaliacoes %}
+                {% if avaliacao.melhorias_processadas %}
+                    {% for melhoria in avaliacao.melhorias_processadas %}
+                        {% set _ = all_melhorias.append(melhoria) %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+
+            {% if all_melhorias %}
+            <div class="card mt-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-trophy me-2"></i>
+                        Melhorias Mais Frequentes
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% set melhorias_count = {} %}
+                        {% for melhoria in all_melhorias %}
+                            {% if melhoria in melhorias_count %}
+                                {% set _ = melhorias_count.update({melhoria: melhorias_count[melhoria] + 1}) %}
+                            {% else %}
+                                {% set _ = melhorias_count.update({melhoria: 1}) %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% for melhoria, count in melhorias_count.items() %}
+                        <div class="col-md-4 mb-2">
+                            <div class="d-flex justify-content-between align-items-center p-2 border rounded">
+                                <span>{{ melhoria }}</span>
+                                <span class="badge bg-success">{{ count }}x</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+        {% elif avaliacoes and avaliacoes|length == 1 %}
+            <div class="text-center py-5">
+                <i class="bi bi-graph-up text-muted" style="font-size: 4rem;"></i>
+                <h4 class="text-muted mt-3">Apenas uma avaliação encontrada</h4>
+                <p class="text-muted">
+                    {{ nome }} possui apenas uma avaliação. São necessárias pelo menos 2 avaliações para comparar o progresso.
+                </p>
+                <a href="/formulario" class="btn btn-primary mt-3">
+                    <i class="bi bi-plus-circle me-1"></i>
+                    Fazer Nova Avaliação
+                </a>
+            </div>
+        {% else %}
+            <div class="text-center py-5">
+                <i class="bi bi-graph-up text-muted" style="font-size: 4rem;"></i>
+                <h4 class="text-muted mt-3">Nenhuma avaliação encontrada</h4>
+                <p class="text-muted">
+                    {{ nome }} ainda não possui avaliações registradas.
+                </p>
+                <a href="/formulario" class="btn btn-primary mt-3">
+                    <i class="bi bi-plus-circle me-1"></i>
+                    Fazer Primeira Avaliação
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+

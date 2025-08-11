@@ -1,0 +1,241 @@
+:root {
+  /* Paleta feminina */
+  --mp-primary: #E91E63;
+  /* rosa */
+  --mp-primary-600: #D81B60;
+  --mp-primary-100: #FCE4EC;
+
+  --mp-secondary: #9C27B0;
+  /* roxo */
+  --mp-secondary-100: #F3E5F5;
+
+  --mp-bg: #FFF7FB;
+  --mp-text: #2B2430;
+
+  --mp-success: #00C853;
+  --mp-warning: #FFC107;
+  --mp-info: #00BCD4;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body.bg-body {
+  background: linear-gradient(180deg, var(--mp-bg), #ffffff);
+  color: var(--mp-text);
+}
+
+/* Navbar / footer */
+.theme-navbar {
+  background: linear-gradient(90deg, var(--mp-secondary), var(--mp-primary));
+  color: #fff;
+}
+
+.theme-navbar .navbar-brand,
+.theme-navbar .navbar-brand span {
+  color: #fff;
+}
+
+.theme-navbar .btn {
+  --bs-btn-color: #fff;
+  --bs-btn-border-color: transparent;
+}
+
+.btn-light-subtle {
+  background: rgba(255, 255, 255, .2);
+  color: #fff;
+}
+
+.btn-light-subtle:hover {
+  background: rgba(255, 255, 255, .35);
+  color: #fff;
+}
+
+.theme-footer {
+  background: linear-gradient(90deg, var(--mp-primary-100), var(--mp-secondary-100));
+}
+
+/* Botões principais */
+.btn-primary {
+  --bs-btn-bg: var(--mp-primary);
+  --bs-btn-border-color: var(--mp-primary);
+  --bs-btn-hover-bg: var(--mp-primary-600);
+  --bs-btn-hover-border-color: var(--mp-primary-600);
+}
+
+/* Cartões */
+.card {
+  border: none;
+  box-shadow: 0 8px 26px rgba(233, 30, 99, .08);
+  border-radius: 14px;
+}
+
+.card-header {
+  background: var(--mp-primary-100);
+  border-bottom: none;
+  color: var(--mp-text);
+  font-weight: 600;
+}
+
+/* Chips/Badges usadas no histórico/comparação */
+.badge.mp {
+  background: var(--mp-primary);
+}
+
+.badge.mp-soft {
+  background: var(--mp-primary-100);
+  color: var(--mp-text);
+  border: 1px solid rgba(233, 30, 99, .25);
+}
+
+/* Inputs */
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--mp-primary);
+  box-shadow: 0 0 0 .2rem rgba(233, 30, 99, .15);
+}
+
+/* Logo redonda */
+.logo-round {
+  border-radius: 50%;
+  background: #000;
+  /* se o PNG tiver fundo transparente o contorno fica bonitinho */
+}
+
+/* ====== substituir azul/verde por rosa/roxo ====== */
+
+/* Gradiente padrão da marca */
+.brand-gradient {
+  background-image: linear-gradient(90deg, var(--mp-secondary), var(--mp-primary));
+  color: #fff !important;
+}
+
+/* ---- tudo que era PRIMARY (azul) vira rosa/roxo ---- */
+.bg-primary,
+.text-bg-primary,
+.alert-primary,
+.badge.bg-primary,
+.badge.text-bg-primary,
+.list-group-item.active,
+.pagination .page-item.active .page-link,
+.table-primary,
+.card-header.bg-primary {
+  background-image: linear-gradient(90deg, var(--mp-secondary), var(--mp-primary)) !important;
+  background-color: var(--mp-secondary) !important;
+  /* fallback */
+  border-color: var(--mp-secondary) !important;
+  color: #fff !important;
+}
+
+.btn-primary {
+  background-image: linear-gradient(90deg, var(--mp-secondary), var(--mp-primary)) !important;
+  border-color: var(--mp-secondary) !important;
+  color: #fff !important;
+}
+
+.btn-primary:hover {
+  filter: brightness(0.95);
+}
+
+.text-primary,
+.link-primary {
+  color: var(--mp-secondary) !important;
+}
+
+.border-primary {
+  border-color: var(--mp-secondary) !important;
+}
+
+/* ---- tudo que era SUCCESS (verde) vira rosa/roxo ---- */
+.bg-success,
+.text-bg-success,
+.alert-success,
+.badge.bg-success,
+.table-success,
+.card-header.bg-success {
+  background-image: linear-gradient(90deg, var(--mp-secondary), var(--mp-primary)) !important;
+  background-color: var(--mp-primary) !important;
+  /* fallback */
+  border-color: var(--mp-secondary) !important;
+  color: #fff !important;
+}
+
+.btn-success {
+  background-image: linear-gradient(90deg, var(--mp-secondary), var(--mp-primary)) !important;
+  border-color: var(--mp-secondary) !important;
+  color: #fff !important;
+}
+
+.btn-success:hover {
+  filter: brightness(0.95);
+}
+
+.text-success,
+.link-success {
+  color: var(--mp-secondary) !important;
+}
+
+.border-success {
+  border-color: var(--mp-primary) !important;
+}
+
+/* progress bars, se você tiver */
+.progress-bar.bg-success,
+.progress-bar.bg-primary {
+  background-image: linear-gradient(90deg, var(--mp-secondary), var(--mp-primary)) !important;
+}
+
+/* badges mais arredondadas*
+/* Badges mais arredondadas */
+.badge {
+  border-radius: 999px;
+  padding: .35rem .6rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* Header de cards quando marcado como bg-primary/success → gradiente rosa/roxo */
+.card-header.bg-primary,
+.card-header.text-bg-primary,
+.card-header.bg-success,
+.card-header.text-bg-success {
+  background-image: linear-gradient(90deg, var(--mp-secondary), var(--mp-primary)) !important;
+  background-color: var(--mp-secondary) !important;
+  /* fallback */
+  color: #fff !important;
+}
+
+/* Se usar a classe utilitária brand-gradient em qualquer lugar */
+.brand-gradient {
+  background-image: linear-gradient(90deg, var(--mp-secondary), var(--mp-primary)) !important;
+  color: #fff !important;
+}
+
+/* Nav pills/abas ativas no gradiente */
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+  background-image: linear-gradient(90deg, var(--mp-secondary), var(--mp-primary)) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+}
+
+/* Links “ativos/primários” */
+a.link-primary,
+.text-primary {
+  color: var(--mp-secondary) !important;
+}
+
+/* Buttons outline secundários mais suaves no tema */
+.btn-outline-secondary {
+  --bs-btn-color: #6c757d;
+  --bs-btn-border-color: #ced4da;
+  --bs-btn-hover-bg: #f8f9fa;
+  --bs-btn-hover-border-color: #bfc6cc;
+}
+
+/* Inputs marcados usam a cor tema (só pra garantir) */
+.form-check-input {
+  accent-color: var(--mp-primary);
+}

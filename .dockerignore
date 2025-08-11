@@ -1,0 +1,29 @@
+cat > .gitignore << 'EOF'
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# SQLite / dados locais
+data/
+*.db
+
+# Environment
+.env
+.env.*
+
+# Docker
+*.log
+# VSCode/IDE
+.vscode/
+.idea/
+
+# Arquivos temporários
+.DS_Store
+Thumbs.db
+
+# (opcional) se não quiser versionar zips grandes:
+# *.zip
+EOF
