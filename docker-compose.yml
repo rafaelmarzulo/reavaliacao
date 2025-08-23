@@ -1,13 +1,44 @@
 services:
   api:
     build: .
-    ports:
-      - "8000:8000"
-    environment:
-      DB_URL: "sqlite:////app/data/reavaliacao.db"
+    image: reavaliacao-api:prod
+    restart: unless-stopped
+    env_file: .env
     volumes:
+      # Volume nomeado p/ o banco (evita atrito de permissões)
       - dbdata:/app/data
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+      # Hot-reload/edição dos templates e estáticos
+      - ./templates:/app/templates:ro
+      - ./static:/app/static:ro
+    # Atrás do Caddy, habilite os cabeçalhos de proxy
+    command: >
+      uvicorn main:app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips="*"
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:8000/healthz || exit 1" ]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    networks: [ web ]
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    env_file: .env # CADDY_DOMAIN / CADDY_EMAIL
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+      # Libere 443 quando tiver domínio válido + DNS apontando
+      # - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    networks: [ web ]
+
+networks:
+  web:
+    driver: bridge
 
 volumes:
   dbdata:

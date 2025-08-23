@@ -1,0 +1,17 @@
+{
+  auto_https off
+}
+
+:80 {
+  encode zstd gzip
+
+  @health path /healthz
+  reverse_proxy @health http://api:8000
+
+  reverse_proxy http://api:8000
+
+  log {
+    output stdout
+    format console
+  }
+}
